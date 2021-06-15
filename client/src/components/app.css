@@ -1,0 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Comfortaa", cursive;
+  background: var(--background);
+  color: var(--accent);
+}
+:root {
+  --background: #3a3a3a;
+  --background-plus: #1a1a1a;
+  --accent: #f1f1f1;
+  --accent-plus: #ffffff;
+  --foreground: #00cbcb;
+}

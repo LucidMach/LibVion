@@ -1,0 +1,32 @@
+.toggle {
+  background: none;
+  display: flex;
+  align-items: center;
+}
+.theme {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+.switch {
+  position: relative;
+  display: flex;
+  cursor: pointer;
+  width: 50px;
+  height: 25px;
+  border-radius: 50px;
+  background: var(--foreground);
+  transition: background 0.2s;
+}
+.circle {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-radius: 40px;
+  background: var(--background);
+  transition: 0.2s;
+}
+.theme:checked + .switch .circle {
+  transform: translateX(+100%);
+}

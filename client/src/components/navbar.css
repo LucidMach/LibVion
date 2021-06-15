@@ -1,0 +1,11 @@
+.nav {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  background: var(--background-plus);
+  justify-content: space-between;
+  align-items: center;
+}
+.nav svg {
+  background: none;
+}
