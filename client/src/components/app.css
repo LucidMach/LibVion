@@ -14,3 +14,6 @@
   --accent-plus: #ffffff;
   --foreground: #00cbcb;
 }
+svg {
+  background: none;
+}

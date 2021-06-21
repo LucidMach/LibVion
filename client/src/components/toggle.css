@@ -12,18 +12,18 @@
   position: relative;
   display: flex;
   cursor: pointer;
-  width: 50px;
-  height: 25px;
-  border-radius: 50px;
+  width: 3.125rem;
+  height: 1.5625rem;
+  border-radius: 3.125rem;
   background: var(--foreground);
   transition: background 0.2s;
 }
 .circle {
   content: "";
   position: absolute;
-  width: 25px;
-  height: 25px;
-  border-radius: 40px;
+  width: 1.5625rem;
+  height: 1.5625rem;
+  border-radius: 2.5rem;
   background: var(--background);
   transition: 0.2s;
 }

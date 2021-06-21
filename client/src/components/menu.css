@@ -1,0 +1,51 @@
+.menu {
+  position: fixed;
+  background: var(--background-plus);
+  width: fit-content;
+  height: 87.5vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s;
+  transform: translateX(-3rem);
+}
+
+.show {
+  transform: translateX(0);
+}
+
+.top {
+  background: none;
+}
+
+.bottom {
+  background: var(--foreground);
+}
+
+.bottom .icon {
+  background: var(--foreground);
+  fill: var(--accent);
+}
+
+.icon {
+  background: none;
+  padding: 0.25rem;
+  margin: 0 0.25rem;
+  border-top: 0.025rem solid var(--background);
+}
+
+.icon:first-child {
+  border: none;
+}
+
+.icon svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+@media screen and (max-width: 600px) {
+  .menu {
+    height: 73vh;
+  }
+}
