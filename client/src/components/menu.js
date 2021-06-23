@@ -1,16 +1,17 @@
 import "./menu.css";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Menu = React.forwardRef(({ top, bottom }, ref) => {
   const renderTop = top.map((icon) => (
     <div className="icon" key={icon.title}>
-      {icon.svg}
+      <Link to={icon.url}>{icon.svg}</Link>
     </div>
   ));
 
   const renderBottom = bottom.map((icon) => (
     <div className="icon" key={icon.title}>
-      {icon.svg}
+      <Link to={icon.url}>{icon.svg}</Link>
     </div>
   ));
 
