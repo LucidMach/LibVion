@@ -1,0 +1,21 @@
+.extendDrop {
+  display: flex;
+  flex-direction: row;
+  color: var(--background-plus);
+  align-items: center;
+  justify-content: space-between;
+}
+.extendDrop svg {
+  transform: rotate(90deg);
+  transition: 0.2s;
+}
+.extendDrop svg.open {
+  transform: rotate(0deg);
+}
+.extendDrop hr {
+  width: 90%;
+  height: 2px;
+  border: 0.05rem solid var(--background-plus);
+  color: var(--background-plus);
+  background-color: var(--background-plus);
+}
