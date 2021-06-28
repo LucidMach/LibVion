@@ -1,0 +1,27 @@
+{
+  "name": "libhood",
+  "version": "1.0.0",
+  "description": "dating app but not cringe",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rootz491/LibHood.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rootz491/LibHood/issues"
+  },
+  "homepage": "https://github.com/rootz491/LibHood#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "firebase-admin": "^9.10.0",
+    "morgan": "^1.10.0"
+  }
+}
