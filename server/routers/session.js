@@ -5,7 +5,41 @@ const admin = require('../services/firebase.js')
 
 //  just intro
 router.get('/', (req, res) => {
-    res.send('signup, login or logout!');
+    res.send('login or logout!');
+});
+
+
+
+router.post('/signup', async (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+    const displayName = req.body.displayName;
+    const phoneNumber = req.body.phoneNumber;
+    const photoURL = req.body.photoURL || '';
+
+    //  validations for password, username etc....
+    /* will do it later. */
+
+    //  remove or add fields for signup, your wish!
+    await admin
+    .auth()
+    .createUser({
+        email,
+        emailVerified: false,
+        phoneNumber,
+        password,
+        displayName,
+        photoURL,
+        disabled: false,
+    })
+    .then((user) => {
+        console.log('Successfully created new user:', user.uid);
+        res.json({success: true});
+    })
+    .catch((error) => {
+        console.log('Error creating new user:', error);
+        res.json({success: false, error});
+    });
 });
 
 
@@ -32,7 +66,7 @@ router.post("/login", (req, res) => {
             },
             (error) => {
                 console.log(error)
-                res.status(401).send("UNAUTHORIZED REQUEST!");
+                res.status(401).json({success: false, error});
             }
         )
         .catch(err => {
