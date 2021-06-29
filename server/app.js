@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use(logger('dev'));
 
 
-//  login page
+//  login page  (just for)
 app.get('/login', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 })
