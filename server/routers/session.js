@@ -15,7 +15,6 @@ router.post('/signup', async (req, res) => {
     const password = req.body.password;
     const displayName = req.body.displayName;
     const phoneNumber = req.body.phoneNumber;
-    const photoURL = req.body.photoURL || '';
 
     //  validations for password, username etc....
     /* will do it later. */
@@ -26,10 +25,9 @@ router.post('/signup', async (req, res) => {
     .createUser({
         email,
         emailVerified: false,
-        phoneNumber,
         password,
         displayName,
-        photoURL,
+        phoneNumber,
         disabled: false,
     })
     .then((user) => {
@@ -38,7 +36,7 @@ router.post('/signup', async (req, res) => {
     })
     .catch((error) => {
         console.log('Error creating new user:', error);
-        res.json({success: false, error});
+        res.status(401).json({success: false, error});
     });
 });
 
@@ -56,22 +54,22 @@ router.post("/login", (req, res) => {
     const expiresIn = 60 * 60 * 24 * 6 * 1000;
 
     admin
-        .auth()
-        .createSessionCookie(idToken, { expiresIn })    //  create cookie if JWT is valid
-        .then(
-            (sessionCookie) => {    //  send back the cookie.
-                const options = { maxAge: expiresIn, httpOnly: true };
-                res.cookie("session", sessionCookie, options);
-                res.json({success: true});
-            },
-            (error) => {
-                console.log(error)
-                res.status(401).json({success: false, error});
-            }
-        )
-        .catch(err => {
-            console.log(err)
-        })
+    .auth()
+    .createSessionCookie(idToken, { expiresIn })    //  create cookie if JWT is valid
+    .then(
+        (sessionCookie) => {    //  send back the cookie.
+            const options = { maxAge: expiresIn, httpOnly: true };
+            res.cookie("session", sessionCookie, options);
+            res.json({success: true});
+        },
+        (error) => {
+            console.log(error)
+            res.status(401).json({success: false, error});
+        }
+    )
+    .catch(err => {
+        console.log(err)
+    });
 });
 
 

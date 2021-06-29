@@ -5,8 +5,12 @@ const logger = require('morgan');
 require('dotenv').config();
 
 
-const apiRouter = require('./routers/api')
 const sessionRouter = require('./routers/session');
+const apiRouter = require('./routers/api')
+const adminRouter = require('./routers/admin');
+
+const isAuthenticated = require('./controllers/isAuthenticated');
+const isAuthorised = require('./controllers/isAuthorised');
 
 let app = express();
 
@@ -20,13 +24,19 @@ app.use(cookieParser());
 app.use(logger('dev'));
 
 
+//  login page
+app.get('/login', (req, res) => {
+    res.sendFile(__dirname + '/index.html');
+})
 
 //  `/session` router
 app.use('/session', sessionRouter);
 
-//  `/api` router
-app.use('/api', apiRouter);
+//  `/api` router (can only access if user is authenticated)
+app.use('/api', isAuthenticated, apiRouter);
 
+//  `/admin` router
+app.use('/admin', isAuthenticated, isAuthorised, adminRouter);
 
 
 

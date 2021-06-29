@@ -1,13 +1,23 @@
 const router = require('express').Router();
-const admin = require('../services/firebase.js')
+const admin = require('../services/firebase')
 
 
 
-
-router.get('/', (req, res) => {
-    res.send('hello world!');
+//  get current user's data for `profile`
+router.get('/me', (req, res) => {
+    admin
+    .auth()
+    .getUser(req.user.uid)
+    .then((userRecord) => {
+        // See the UserRecord reference doc for the contents of userRecord.
+        console.log(`Successfully fetched user data: ${userRecord.toJSON()}`);
+        res.json({success: true, user: userRecord.toJSON()});
+    })
+    .catch((error) => {
+        console.log('Error fetching user data:', error);
+        res.json({success: false, error: error.message});
+    });
 });
-
 
 
 
