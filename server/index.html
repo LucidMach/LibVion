@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+
+    <title>login</title>
+</head>
+<body>
+    <form action="" method="post">
+        <input type="email" name="email" placeholder="email" required> <br>
+        <input type="password" name="password" placeholder="password" required> <br>
+        <input type="submit" value="login">
+    </form>
+
+    <script>
+
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBT4pu9ve8zrqSz0CmxENE3KDp8AbSWEn0",
+            authDomain: "libhood-7.firebaseapp.com",
+            projectId: "libhood-7",
+            storageBucket: "libhood-7.appspot.com",
+            messagingSenderId: "887318886355",
+            appId: "1:887318886355:web:7822c502c98a7af9366126",
+            measurementId: "G-79GE8Z0ZVD"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        //  login event listener
+        document.addEventListener('submit', e => {
+            e.preventDefault();
+            console.log('req started')
+            const email = e.target.email.value;
+            const password = e.target.password.value;
+
+            // As httpOnly cookies are to be used, do not persist any state client side from firebase.
+            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
+
+            firebase
+                .auth()
+                .signInWithEmailAndPassword(email, password)    //  authenticate using email & password fron firebase auth server.
+                .then(({ user }) => {       //  if login is successful, then firebasse will return current user's data,
+                    return user.getIdToken().then((idToken) => {    //  get user's idToken (JWT)
+                        //  make a reques to backend endpoint, which will verify JWT and send back the sessiion, if JWT is valid.
+                        return fetch("/session/login", {
+                            method: "POST",
+                            headers: {
+                                Accept: "application/json",
+                                "Content-Type": "application/json",
+                                // "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+                            },
+                                body: JSON.stringify({ idToken }),  //  send idToken in the body
+                        });
+                    });
+                })
+                .then(() => {
+                    //  now user's session is already managed by backend, so we dont need firebase management anymore!
+                    //  hense JWT will expire now (probably 😅)
+                    return firebase.auth().signOut();
+                })
+                .then(() => {
+                    //  do some redirection or other actions
+                    console.log('login successful');
+                })
+                .catch(err => {
+                    //  if user credentials are incorrect then handle accordingly!
+                    //  message will be sent back from firebase auth server here, 
+                    //  just add a proper message to DOM. 
+                    console.log(err);
+                });
+        })
+
+    </script>
+</body>
+</html>
