@@ -10,29 +10,20 @@ router.get('/', (req, res) => {
 
 
 
+
 router.post('/signup', async (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
-    const displayName = req.body.displayName;
-    const phoneNumber = req.body.phoneNumber;
+    let { email, password, displayName } = req.body;
 
-    //  validations for password, username etc....
-    /* will do it later. */
+    /**  @todo regex validations for password, username etc.... */
 
-    //  remove or add fields for signup, your wish!
     await admin
     .auth()
     .createUser({
-        email,
-        emailVerified: false,
-        password,
-        displayName,
-        phoneNumber,
-        disabled: false,
+        email, password, displayName
     })
     .then((user) => {
         console.log('Successfully created new user:', user.uid);
-        res.json({success: true});
+        res.json({success: true, user});
     })
     .catch((error) => {
         console.log('Error creating new user:', error);
@@ -64,7 +55,7 @@ router.post("/login", (req, res) => {
         },
         (error) => {
             console.log(error)
-            res.status(401).json({success: false, error});
+            res.status(401).json({success: false, error: error.message});
         }
     )
     .catch(err => {
