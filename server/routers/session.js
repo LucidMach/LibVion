@@ -10,14 +10,11 @@ router.get('/', (req, res) => {
 
 
 
-/**  @todo - need a fix - creating anonymous user instead of email-password user */
+
 router.post('/signup', async (req, res) => {
     let { email, password, displayName } = req.body;
 
-    console.log(email, password, displayName)
-
     /**  @todo regex validations for password, username etc.... */
-
 
     await admin
     .auth()

@@ -10,7 +10,7 @@ router.get('/me', (req, res) => {
     .getUser(req.user.uid)
     .then((userRecord) => {
         // See the UserRecord reference doc for the contents of userRecord.
-        console.log(`Successfully fetched user data: ${userRecord.toJSON()}`);
+        // console.log(`Successfully fetched user data: ${userRecord.toJSON()}`);
         res.json({success: true, user: userRecord.toJSON()});
     })
     .catch((error) => {
@@ -21,23 +21,19 @@ router.get('/me', (req, res) => {
 
 
 
-/**  @todo - need fix - not updating the data */
-//  update current user's data!
+//  update current user's data (displayName & phoneNumber for now)
 router.put('/me/update', (req, res) => {
     //  take any field from req body
-    const { email, phoneNumber, displayName, photoURL } = req.body;
-
+    const { phoneNumber, displayName } = req.body;
+    
     admin
     .auth()
     .updateUser(req.user.uid, {
-        email,
         phoneNumber,
-        displayName,
-        photoURL,
-        // disabled: true,          <-  you can also `disable` user from here. but that's something only admin should be able to do; so NOPE!
+        displayName
     })
     .then((userRecord) => {
-        console.log('Successfully updated user', userRecord.toJSON());
+        // console.log('Successfully updated user', userRecord.toJSON());
         res.json({success: true, user: userRecord.toJSON()});
     })
     .catch((error) => {
@@ -62,7 +58,7 @@ router.delete('/me/delete', (req, res) => {
     .auth()
     .deleteUser(req.user.uid)
     .then(() => {
-        console.log('Successfully deleted user');
+        // console.log('Successfully deleted user');
         res.json({success: true});
     })
     .catch((error) => {
