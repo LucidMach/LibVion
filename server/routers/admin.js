@@ -4,7 +4,7 @@ const admin = require('../services/firebase.js')
 
 
 //  get list of all users for admin sorted by UID
-router.get('/users/list', (req, res) => {
+router.get('/user/list', (req, res) => {
     //  take nextPageToken from req query
     let nextPageToken = req.query.next || '';
     let amount = req.query.amount || 100;

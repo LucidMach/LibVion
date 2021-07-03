@@ -6,7 +6,7 @@ require('dotenv').config();
 
 
 const sessionRouter = require('./routers/session');
-const apiRouter = require('./routers/api')
+const userRouter = require('./routers/user')
 const booksRouter = require('./routers/books')
 const adminRouter = require('./routers/admin');
 
@@ -34,7 +34,7 @@ app.get('/login', (req, res) => {
 app.use('/session', sessionRouter);
 
 //  `/api` router (can only access if user is authenticated)
-app.use('/api', isAuthenticated, apiRouter);
+app.use('/user', isAuthenticated, userRouter);
 
 //  `/books` router (to manage books)
 app.use('/books', isAuthenticated, booksRouter);
