@@ -7,6 +7,7 @@ require('dotenv').config();
 
 const sessionRouter = require('./routers/session');
 const apiRouter = require('./routers/api')
+const booksRouter = require('./routers/books')
 const adminRouter = require('./routers/admin');
 
 const isAuthenticated = require('./controllers/isAuthenticated');
@@ -27,7 +28,7 @@ app.use(logger('dev'));
 //  login page  (just for)
 app.get('/login', (req, res) => {
     res.sendFile(__dirname + '/index.html');
-})
+});
 
 //  `/session` router
 app.use('/session', sessionRouter);
@@ -35,11 +36,14 @@ app.use('/session', sessionRouter);
 //  `/api` router (can only access if user is authenticated)
 app.use('/api', isAuthenticated, apiRouter);
 
-//  `/admin` router
+//  `/books` router (to manage books)
+app.use('/books', isAuthenticated, booksRouter);
+
+//  `/admin` router (privilidged actions)
 app.use('/admin', isAuthenticated, isAuthorised, adminRouter);
 
 
 
 app.listen(process.env.PORT, _ => {
-    console.log(`server is running on http://localhost:${process.env.PORT}`)
+    console.log(`server is running on http://localhost:${process.env.PORT}`);
 });
