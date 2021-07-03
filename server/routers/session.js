@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const admin = require('../services/firebase.js')
 
+const { pushUser } = require('../services/firestore');
 
 
 //  just intro
@@ -23,7 +24,10 @@ router.post('/signup', async (req, res) => {
     })
     .then((user) => {
         console.log('Successfully created new user:', user.uid);
-        res.json({success: true, user});
+        //  initialize user's bookList in firestore DB
+        pushUser(user.uid, _ => {
+            res.json({success: true});
+        })
     })
     .catch((error) => {
         console.log('Error creating new user:', error);

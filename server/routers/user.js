@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const admin = require('../services/firebase')
 
+const { removeUser } = require('../services/firestore');
 
 
 //  get current user's data for `profile`!
@@ -9,9 +10,8 @@ router.get('/me', (req, res) => {
     .auth()
     .getUser(req.user.uid)
     .then((userRecord) => {
-        // See the UserRecord reference doc for the contents of userRecord.
-        // console.log(`Successfully fetched user data: ${userRecord.toJSON()}`);
-        res.json({success: true, user: userRecord.toJSON()});
+        // console.log(`Successfully fetched user data: ${userRecord.toJSON()}`)
+        res.json({success: true, data: userRecord.toJSON()});
     })
     .catch((error) => {
         console.log('Error fetching user data:', error);
@@ -33,8 +33,8 @@ router.put('/me/update', (req, res) => {
         displayName
     })
     .then((userRecord) => {
-        // console.log('Successfully updated user', userRecord.toJSON());
-        res.json({success: true, user: userRecord.toJSON()});
+        // console.log('Successfully updated user', userRecord.toJSON())
+        res.json({success: true, data: userRecord.toJSON()});
     })
     .catch((error) => {
         console.log('Error updating user:', error);
@@ -45,7 +45,7 @@ router.put('/me/update', (req, res) => {
 
 
 //  delete current user         
-router.delete('/me/delete', (req, res) => {
+router.delete('/me/delete', async (req, res) => {
     /**
      * @todo passoword check
      * we can also do a password check first, like:
@@ -54,11 +54,13 @@ router.delete('/me/delete', (req, res) => {
         * if verified, only then perform action
     */
 
-    admin
+    //  remove user data from firebase!
+    removeUser(req.user.uid);
+
+    await admin
     .auth()
     .deleteUser(req.user.uid)
     .then(() => {
-        // console.log('Successfully deleted user');
         res.json({success: true});
     })
     .catch((error) => {
