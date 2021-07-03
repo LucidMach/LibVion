@@ -25,7 +25,7 @@ module.exports = {
     },
 
     //  fetch 5 books at a time, orderBy `time` field.
-    pullBooks: (callback, ignore=0) => {
+    pullBook: (callback, ignore=0) => {
         firestore.collection('books').offset(parseInt(ignore)*5).limit(5).orderBy('time', 'desc').get()
         .then(ss => {
             let books = []

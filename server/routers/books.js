@@ -2,14 +2,63 @@ let router = require('express').Router();
 
 const isAuthorised = require('../controllers/isAuthorised');
 
-const { pullUserBooks, pushUserBook, removeUserBook } = require('../services/firestore');
+const { pullBooks, pushBook, pullBookById, updateBook, removeBook } = require('../services/firestore');
 const { pullBooksRequest, pullBookRequestById, pushBooksRequest, removeBookRequestById, markBookRequest } = require('../services/firestore');
+const { pullUserBooks, pushUserBook, removeUserBook } = require('../services/firestore');
 
 
 
 
 
 /* Books endpoints */
+
+router.get('/books', (req, res) => {
+    /**@todo check if `page` query is number */
+    const ignore = req.query.page || 0;
+
+    pullBooks(books => {
+        res.json({success: true, data: books})
+    }, ignore);
+});
+
+router.get('/book/:id', (req, res) => {
+    /**@todo type-checking on `id` parameter */
+    const reqId = req.params.id;
+    
+    pullBookById(reqId, data => {
+        console.log(data);
+        res.json({success: true, data})
+    });
+});
+
+router.post('/books', isAuthorised, (req, res) => {
+    /**@todo check on fields of req.body */
+    const { name, author, quote } = req.body;
+
+    pushBook(name, author, quote, ss => {
+        console.log(ss);
+        res.json({success: true, id: ss.id});
+    });
+});
+
+router.delete('/books/:id', isAuthorised, (req, res) => {
+    /**@todo type-checking on `id` parameter */
+    const bid = req.params.id;
+
+    removeBook(bid, () => {
+        res.json({success: true});
+    })
+});
+
+//  status can only be changed by admins
+router.put('/books/:id', isAuthorised, (req, res) => {
+    /**@todo type-checking on `id` parameter */
+    const bid = req.params.id;
+
+    updateBook(bid, status, data => {
+        res.json({success: true, data});
+    });
+});
 
 
 

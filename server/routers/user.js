@@ -11,7 +11,7 @@ router.get('/me', (req, res) => {
     .getUser(req.user.uid)
     .then((userRecord) => {
         // console.log(`Successfully fetched user data: ${userRecord.toJSON()}`)
-        res.json({success: true, user: userRecord.toJSON()});
+        res.json({success: true, data: userRecord.toJSON()});
     })
     .catch((error) => {
         console.log('Error fetching user data:', error);
@@ -34,7 +34,7 @@ router.put('/me/update', (req, res) => {
     })
     .then((userRecord) => {
         // console.log('Successfully updated user', userRecord.toJSON())
-        res.json({success: true, user: userRecord.toJSON()});
+        res.json({success: true, data: userRecord.toJSON()});
     })
     .catch((error) => {
         console.log('Error updating user:', error);
