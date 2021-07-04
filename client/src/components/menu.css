@@ -32,8 +32,8 @@
 
 .icon {
   background: none;
-  padding: 0.25rem;
-  margin: 0 0.25rem;
+  padding: 0.5rem;
+  margin: 0.25rem;
   border-top: 0.025rem solid var(--background);
 }
 
@@ -42,8 +42,8 @@
 }
 
 .icon svg {
-  width: 2rem;
-  height: 2rem;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 @media screen and (max-width: 600px) {
