@@ -8,11 +8,13 @@
   justify-content: space-between;
   align-items: center;
   transition: transform 0.2s;
-  transform: translateX(-3rem);
+  /* transform: translateX(-3rem); */
+  transform: translateX(0);
 }
 
 .show {
-  transform: translateX(0);
+  /* transform: translateX(0); */
+  transform: translateX(-3rem);
 }
 
 .top {

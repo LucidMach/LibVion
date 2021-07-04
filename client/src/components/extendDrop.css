@@ -9,9 +9,6 @@
   transform: rotate(90deg);
   transition: 0.2s;
 }
-.extendDrop svg.open {
-  transform: rotate(0deg);
-}
 .extendDrop hr {
   width: 90%;
   height: 2px;

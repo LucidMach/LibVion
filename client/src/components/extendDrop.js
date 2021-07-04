@@ -18,7 +18,7 @@ const ExtendDrop = ({ msg, content }) => {
         <hr />
       </div>
 
-      <div className="content show">{content}</div>
+      <div className="content">{content}</div>
     </React.Fragment>
   );
 };

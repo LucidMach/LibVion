@@ -12,6 +12,9 @@
   transform: rotate(90deg);
   transition: 0.2s;
 }
+.nav svg.open {
+  transform: rotate(0);
+}
 a {
   background: none;
 }
