@@ -51,3 +51,12 @@ It follows the typical `create-react-app` file structure with a small **twist**.
 
 4.  **ExtendDrop**:
     Click to Drop/Extend Contents.
+
+    States:
+
+        Drop: true/false
+
+    Props:
+
+        1. msg: The title of dropdown extender
+        2. children: content to be rendered only if drop === true
