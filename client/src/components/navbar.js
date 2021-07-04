@@ -1,5 +1,5 @@
 import "./navbar.css";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Toggle from "./toggle";
 import Menu from "./menu";
 
@@ -8,16 +8,24 @@ const NavBar = ({ logo, theme, setTheme }) => {
   const menuRef = useRef();
   const menudot = useRef();
 
-  const handleClick = (e) => {
+  const toggleMenu = () => {
     menudot.current.classList.toggle("open");
     setOpen(!open);
     menuRef.current.classList.toggle("show");
   };
 
+  useEffect(() => {
+    if (window.innerWidth < 600) toggleMenu();
+    // eslint-disable-next-line
+  }, []);
+
+  const handleClick = () => toggleMenu();
+
   const top = [
     {
       title: "Search",
-      url: "/",
+      url: "/search",
+      onClick: toggleMenu,
       svg: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -33,6 +41,7 @@ const NavBar = ({ logo, theme, setTheme }) => {
     {
       title: "Books",
       url: "/books",
+      onClick: toggleMenu,
       svg: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -47,6 +56,7 @@ const NavBar = ({ logo, theme, setTheme }) => {
     },
     {
       title: "Requests",
+      onClick: toggleMenu,
       svg: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -65,6 +75,7 @@ const NavBar = ({ logo, theme, setTheme }) => {
     {
       title: "Sign In",
       url: "/signin",
+      onClick: toggleMenu,
       svg: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -80,6 +91,7 @@ const NavBar = ({ logo, theme, setTheme }) => {
     {
       title: "Profile",
       url: "/profile",
+      onClick: toggleMenu,
       svg: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -95,6 +107,7 @@ const NavBar = ({ logo, theme, setTheme }) => {
 
     {
       title: "Sign Out",
+      onClick: toggleMenu,
       svg: (
         <svg
           xmlns="http://www.w3.org/2000/svg"

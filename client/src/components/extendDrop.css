@@ -4,8 +4,13 @@
   color: var(--foreground);
   align-items: center;
   justify-content: space-between;
+  margin: 1rem 0;
+}
+.drop-content {
+  margin-left: 1rem;
 }
 .extendDrop svg {
+  z-index: 0;
   transform: rotate(90deg);
   transition: 0.2s;
   fill: var(--foreground);

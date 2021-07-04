@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 
 const Menu = React.forwardRef(({ top, bottom }, ref) => {
   const renderTop = top.map((icon) => (
-    <div className="icon" key={icon.title}>
+    <div className="icon" key={icon.title} onClick={icon.onClick}>
       <Link to={icon.url}>{icon.svg}</Link>
     </div>
   ));
 
   const renderBottom = bottom.map((icon) => (
-    <div className="icon" key={icon.title}>
+    <div className="icon" key={icon.title} onClick={icon.onClick}>
       <Link to={icon.url}>{icon.svg}</Link>
     </div>
   ));
