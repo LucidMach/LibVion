@@ -1,10 +1,11 @@
 import "./extendDrop.css";
-import React from "react";
+import React, { useState } from "react";
 
-const ExtendDrop = ({ msg, content }) => {
+const ExtendDrop = ({ msg, children }) => {
+  const [drop, setDrop] = useState(true);
   return (
-    <React.Fragment>
-      <div className="extendDrop">
+    <div>
+      <div onClick={() => setDrop(!drop)} className="extendDrop">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="10"
@@ -17,9 +18,8 @@ const ExtendDrop = ({ msg, content }) => {
         {msg}
         <hr />
       </div>
-
-      <div className="content show">{content}</div>
-    </React.Fragment>
+      {drop ? <div className="drop-content">{children}</div> : null}
+    </div>
   );
 };
 

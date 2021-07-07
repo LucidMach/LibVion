@@ -31,11 +31,11 @@ const App = () => {
         <NavBar logo={logo} theme={theme} setTheme={setTheme}></NavBar>
         <div className="content">
           <Switch>
-            <Route path="/" exact component={Search} />
+            <Route path="/search" component={Search} />
             <Route path="/books" component={Books} />
             <Route path="/profile" component={Profile} />
             <Route path="/signin" component={SignIn} />
-            <Route path="/" render={() => <h1>404</h1>} />
+            <Route path="/" render={() => <h1>home</h1>} />
           </Switch>
         </div>
       </BrowserRouter>

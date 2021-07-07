@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# Intro
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a `PWA` built using `create-react-app`.
 
-## Available Scripts
+## File Structure
 
-In the project directory, you can run:
+It follows the typical `create-react-app` file structure with a small **twist**.
 
-### `yarn start`
+1. 1st-Order Components are at `./client/src/components`
+2. 2nd-Order Components are at `./client/src/pages`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+> 2nd Order Components are Components Composed of 1st-Order Components
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 1st Order Components
 
-### `yarn test`
+1.  **Toggle**:
+    Switches Theme Between `Tron (dark)` and `Flynn (light)`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    States: NULL
 
-### `yarn build`
+    Props:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+        Theme State (From App): Dark/Light
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    If Theme is Dark, CSS Varibles are Set to Shades of Black.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    If Theme is Light, CSS Varibles are Set to Shades of White.
 
-### `yarn eject`
+2.  **NavBar**:
+    Houses Toggle, Sliding Menu & LoGo.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+    States:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+        Open: To Control Sliding Menu Location (OutSide ViewPort (or) InSide ViewPort)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+    Props:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+        1. Logo: A SVG Containing Logo
+        2. Theme State(from App): Dark/Light
 
-## Learn More
+3.  **Menu**:
+    Menu Bar with Sliding Animations.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    States: NULL
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    Props:
 
-### Code Splitting
+        1. Top: Object Of Icons To Be Displayed on Top Section of Menu
+        2. Bottom: Object Of Icons To Be Displayed on Bottom Section of Menu
+        3. Ref: A Ref Hook onto Menu
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+4.  **ExtendDrop**:
+    Click to Drop/Extend Contents.
 
-### Analyzing the Bundle Size
+    States:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+        Drop: true/false
 
-### Making a Progressive Web App
+    Props:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+        1. msg: The title of dropdown extender
+        2. children: content to be rendered only if drop === true
