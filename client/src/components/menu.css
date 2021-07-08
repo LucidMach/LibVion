@@ -1,5 +1,6 @@
 .menu {
   position: fixed;
+  top: 80px;
   background: var(--background-plus);
   width: fit-content;
   display: flex;

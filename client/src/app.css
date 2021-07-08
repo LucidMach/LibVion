@@ -17,7 +17,15 @@
 svg {
   background: none;
 }
-.content {
-  /* width: 90vw; */
-  padding: 2% 4.25%;
+.card {
+  margin: 1rem 4rem;
+  padding: 1rem 2.125rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem #1a1a1a;
+}
+@media screen and (max-width: 600px) {
+  .card {
+    margin: 1rem;
+  }
 }

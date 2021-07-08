@@ -1,0 +1,23 @@
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+input {
+  color: var(--accent);
+  margin: 1rem 0;
+  padding: 0.6rem;
+}
+input:focus {
+  outline: none;
+}
+form button {
+  padding: 0.6rem;
+  border: none;
+  background: var(--foreground);
+  transition: 0.2s;
+}
+form button:hover {
+  cursor: pointer;
+  box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem #1a1a1a;
+}

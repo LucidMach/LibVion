@@ -25,21 +25,26 @@ const App = () => {
     app.style.setProperty("--background-plus", "#ffffff");
   }
 
+  const bodyStyle = {
+    height: window.innerHeight,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  };
+
   return (
-    <React.Fragment>
-      <BrowserRouter>
-        <NavBar logo={logo} theme={theme} setTheme={setTheme}></NavBar>
-        <div className="content">
-          <Switch>
-            <Route path="/search" component={Search} />
-            <Route path="/books" component={Books} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/signin" component={SignIn} />
-            <Route path="/" render={() => <h1>home</h1>} />
-          </Switch>
+    <BrowserRouter>
+      <NavBar logo={logo} theme={theme} setTheme={setTheme}></NavBar>
+      <Switch>
+        <div style={bodyStyle}>
+          <Route path="/search" component={Search} />
+          <Route path="/books" component={Books} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/signin" component={SignIn} />
+          <Route path="/" exact render={() => <h1>home</h1>} />
         </div>
-      </BrowserRouter>
-    </React.Fragment>
+      </Switch>
+    </BrowserRouter>
   );
 };
 
