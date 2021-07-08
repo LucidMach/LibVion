@@ -2,7 +2,6 @@
   position: fixed;
   background: var(--background-plus);
   width: fit-content;
-  height: 87.5vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -43,10 +42,4 @@
 .icon svg {
   width: 1.5rem;
   height: 1.5rem;
-}
-
-@media screen and (max-width: 600px) {
-  .menu {
-    height: 73vh;
-  }
 }
