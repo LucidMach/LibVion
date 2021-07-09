@@ -1,11 +1,15 @@
 import "./app.css";
 import NavBar from "./components/navbar";
 import logo from "./assets/LibHood.png";
+
 import React, { useState } from "react";
+
 import Search from "./pages/search";
 import Books from "./pages/books";
 import Profile from "./pages/profile";
-import SignIn from "./pages/signin";
+import SignUp from "./pages/signup";
+import LogIn from "./pages/login";
+import Recover from "./pages/recover";
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
@@ -34,16 +38,18 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <NavBar logo={logo} theme={theme} setTheme={setTheme}></NavBar>
-      <Switch>
-        <div style={bodyStyle}>
+      <div style={bodyStyle}>
+        <NavBar logo={logo} theme={theme} setTheme={setTheme}></NavBar>
+        <Switch>
           <Route path="/search" component={Search} />
           <Route path="/books" component={Books} />
           <Route path="/profile" component={Profile} />
-          <Route path="/signin" component={SignIn} />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/login" component={LogIn} />
+          <Route path="/recover" component={Recover} />
           <Route path="/" exact render={() => <h1>home</h1>} />
-        </div>
-      </Switch>
+        </Switch>
+      </div>
     </BrowserRouter>
   );
 };

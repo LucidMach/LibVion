@@ -73,8 +73,8 @@ const NavBar = ({ logo, theme, setTheme }) => {
 
   const bottom = [
     {
-      title: "Sign In",
-      url: "/signin",
+      title: "Sign Up",
+      url: "/signup",
       onClick: toggleMenu,
       svg: (
         <svg
