@@ -2,6 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
+const cors = require('cors');
 require('dotenv').config();
 
 
@@ -16,6 +17,7 @@ const isAuthorised = require('./controllers/isAuthorised');
 let app = express();
 
 
+let allowedOrigins = [ 'localhost:3000' ];
 
 
 //  middlewares
@@ -23,6 +25,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(logger('dev'));
+app.use(cors({
+    origin: 'localhost:3000',
+    credentials: true
+})); //  CORS is enabled for *
 
 
 //  login page  (just for)

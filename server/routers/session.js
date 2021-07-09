@@ -30,8 +30,8 @@ router.post('/signup', async (req, res) => {
         })
     })
     .catch((error) => {
-        console.log('Error creating new user:', error);
-        res.status(401).json({success: false, error});
+        console.log('Error creating new user:', error.message);
+        res.status(401).json({success: false, error: error.message});
     });
 });
 
