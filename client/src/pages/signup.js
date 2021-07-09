@@ -1,5 +1,6 @@
 import "./signin.css";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const SignIn = () => {
   const [username, setUsername] = useState('');
@@ -67,11 +68,13 @@ const SignIn = () => {
           />
           <input value={password} onChange={e => setPassword(e.target.value)} type="password" placeholder="Enter Your Password" required/>
           <input value={cpassword} onChange={e => setCpassword(e.target.value)} type="password" placeholder="Confirm Your Password" required/>
+
           <button>Sign Up</button>
+          <br />
         </form>
       </div>
       <p style={{ textAlign: "center" }}>
-        Have An Account? <span>Log In</span>
+        Have An Account? <Link to="/login">Log In</Link>
       </p>
     </>
   );
