@@ -10,55 +10,36 @@ const { pullUserBooks, pushUserBook, removeUserBook } = require('../services/fir
 
 
 
-/* Books endpoints */
 
-router.get('/books', (req, res) => {
-    /**@todo check if `page` query is number */
-    const ignore = req.query.page || 0;
+/* User's Book endpoints */
 
-    pullBooks(books => {
-        res.json({success: true, data: books})
-    }, ignore);
-});
-
-router.get('/book/:id', (req, res) => {
-    /**@todo type-checking on `id` parameter */
-    const reqId = req.params.id;
-    
-    pullBookById(reqId, data => {
-        console.log(data);
-        res.json({success: true, data})
+router.get('/me', (req, res) => {
+    pullUserBooks(req.user.uid, books => {
+        res.json({success: true, books});
     });
 });
 
-router.post('/books', isAuthorised, (req, res) => {
-    /**@todo check on fields of req.body */
-    const { name, author, quote } = req.body;
+router.post('/me', (req, res) => {
+    const bookId = req.body.bid;    //  id of book
+    /** @todo check if book ID is legit */
 
-    pushBook(name, author, quote, ss => {
-        console.log(ss);
-        res.json({success: true, id: ss.id});
-    });
-});
-
-router.delete('/books/:id', isAuthorised, (req, res) => {
-    /**@todo type-checking on `id` parameter */
-    const bid = req.params.id;
-
-    removeBook(bid, () => {
+    pushUserBook(req.user.uid, bookId, ss => {
+        // console.log(ss)
         res.json({success: true});
-    })
-});
-
-//  status can only be changed by admins
-router.put('/books/:id', isAuthorised, (req, res) => {
-    /**@todo type-checking on `id` parameter */
-    const bid = req.params.id;
-
-    updateBook(bid, status, data => {
-        res.json({success: true, data});
     });
 });
+
+router.delete('/me', (req, res) => {
+    const bookId = req.body.bid;    //  id of book
+    /** @todo check if book ID is legit */
+
+    removeUserBook(req.user.uid, bookId, ss => {
+        // console.log(ss)
+        res.json({success: true});
+    });
+});
+
+
 
 
 
@@ -78,7 +59,7 @@ router.post('/request', (req, res) => {
     const { name, author, note } = req.body;
 
     pushBooksRequest(name, author, req.user.uid, note, ss => {
-        console.log(ss);
+        // console.log(ss)
         res.json({success: true, id: ss.id});
     });
 });
@@ -88,7 +69,7 @@ router.get('/request/:id', (req, res) => {
     const reqId = req.params.id;
 
     pullBookRequestById(reqId, data => {
-        console.log(data);
+        // console.log(data)
         res.json({success: true, data})
     });
 });
@@ -114,34 +95,57 @@ router.put('/request/:id', isAuthorised, (req, res) => {
 });
 
 
-/* User's Book endpoints */
 
-router.get('/me', (req, res) => {
-    pullUserBooks(req.user.uid, books => {
-        res.json({success: true, books});
+
+/* Books endpoints */
+
+router.get('/', (req, res) => {
+    /**@todo check if `page` query is number */
+    const ignore = req.query.page || 0;
+
+    pullBooks(books => {
+        res.json({success: true, data: books})
+    }, ignore);
+});
+
+router.get('/:id', (req, res) => {
+    /**@todo type-checking on `id` parameter */
+    const reqId = req.params.id;
+    
+    pullBookById(reqId, data => {
+        // console.log(data)
+        res.json({success: true, data})
     });
 });
 
-router.post('/me', (req, res) => {
-    const bookId = req.body.bid;    //  id of book
-    /** @todo check if book ID is legit */
+router.post('/', isAuthorised, (req, res) => {
+    /**@todo check on fields of req.body */
+    const { name, author, quote } = req.body;
 
-    pushUserBook(req.user.uid, bookId, ss => {
-        console.log(ss)
+    pushBook(name, author, quote, ss => {
+        // console.log(ss)
+        res.json({success: true, id: ss.id});
+    });
+});
+
+router.delete('/:id', isAuthorised, (req, res) => {
+    /**@todo type-checking on `id` parameter */
+    const bid = req.params.id;
+
+    removeBook(bid, () => {
         res.json({success: true});
-    });
+    })
 });
 
-router.delete('/me', (req, res) => {
-    const bookId = req.body.bid;    //  id of book
-    /** @todo check if book ID is legit */
+//  status can only be changed by admins
+router.put('/:id', isAuthorised, (req, res) => {
+    /**@todo type-checking on `id` parameter */
+    const bid = req.params.id;
 
-    removeUserBook(req.user.uid, bookId, ss => {
-        console.log(ss)
-        res.json({success: true});
+    updateBook(bid, status, data => {
+        res.json({success: true, data});
     });
 });
-
 
 
 
