@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Menu = React.forwardRef(({ top, bottom }, ref) => {
-  console.log(window.innerHeight);
+  // console.log(window.innerHeight);
 
   const renderTop = top.map((icon) => (
     <div className="icon" key={icon.title} onClick={icon.onClick}>

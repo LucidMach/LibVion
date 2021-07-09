@@ -38,7 +38,6 @@ const SignIn = () => {
           data.success ?
           alert("user created successfully") :
           alert(data.error)
-
         })
         .catch(err => console.log(err));
     }

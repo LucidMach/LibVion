@@ -2,11 +2,25 @@ import "./navbar.css";
 import React, { useEffect, useRef, useState } from "react";
 import Toggle from "./toggle";
 import Menu from "./menu";
+import { auth } from "../app";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const NavBar = ({ logo, theme, setTheme }) => {
   const [open, setOpen] = useState(false);
+  const [user] = useAuthState(auth);
   const menuRef = useRef();
   const menudot = useRef();
+
+  const logout = () => {
+    auth.signOut();
+    fetch('/session/logout')
+      .then(res => res.json())
+      .then(data => {
+        data.success ?
+        alert('logged out successfully!') :
+        alert('something wrong happened on server-side');
+      });
+  }
 
   const toggleMenu = () => {
     menudot.current.classList.toggle("open");
@@ -21,7 +35,8 @@ const NavBar = ({ logo, theme, setTheme }) => {
 
   const handleClick = () => toggleMenu();
 
-  const top = [
+  const top = user ?
+  [
     {
       title: "Search",
       url: "/search",
@@ -69,9 +84,10 @@ const NavBar = ({ logo, theme, setTheme }) => {
         </svg>
       ),
     },
-  ];
+  ] : [];
 
-  const bottom = [
+  const bottom = !user ?
+  [
     {
       title: "Sign Up",
       url: "/signup",
@@ -87,7 +103,10 @@ const NavBar = ({ logo, theme, setTheme }) => {
           <path d="M8 9v-4l8 7-8 7v-4h-8v-6h8zm2-7v2h12v16h-12v2h14v-20h-14z" />
         </svg>
       ),
-    },
+    }
+  ]
+  :
+  [
     {
       title: "Profile",
       url: "/profile",
@@ -104,10 +123,10 @@ const NavBar = ({ logo, theme, setTheme }) => {
         </svg>
       ),
     },
-
     {
       title: "Sign Out",
-      onClick: toggleMenu,
+      onClick: logout,
+      url: '#',
       svg: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -119,7 +138,7 @@ const NavBar = ({ logo, theme, setTheme }) => {
           <path d="M16 9v-4l8 7-8 7v-4h-8v-6h8zm-16-7v20h14v-2h-12v-16h12v-2h-14z" />
         </svg>
       ),
-    },
+    }
   ];
 
   return (
