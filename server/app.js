@@ -17,6 +17,7 @@ const isAuthorised = require('./controllers/isAuthorised');
 let app = express();
 
 
+let allowedOrigins = [ 'localhost:3000' ];
 
 
 //  middlewares
@@ -24,7 +25,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(logger('dev'));
-app.use(cors({credentials: true})); //  CORS is enabled for *
+app.use(cors({
+    origin: 'localhost:3000',
+    credentials: true
+})); //  CORS is enabled for *
 
 
 //  login page  (just for)
