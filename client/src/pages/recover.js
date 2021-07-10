@@ -1,5 +1,6 @@
 import "./signin.css";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const SignIn = () => {
   return (
@@ -12,6 +13,9 @@ const SignIn = () => {
             placeholder="Enter Your Email-ID"
             autoComplete="none"
           />
+          <Link to="/login" style={{ textAlign: "right" }}>
+            cancel
+          </Link>
           <br />
           <button>Send Email</button>
           <br />

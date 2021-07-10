@@ -56,6 +56,7 @@ const NavBar = ({ logo, theme, setTheme }) => {
     },
     {
       title: "Requests",
+      url: "./notifications",
       onClick: toggleMenu,
       svg: (
         <svg
@@ -73,8 +74,8 @@ const NavBar = ({ logo, theme, setTheme }) => {
 
   const bottom = [
     {
-      title: "Sign Up",
-      url: "/signup",
+      title: "Log In",
+      url: "/login",
       onClick: toggleMenu,
       svg: (
         <svg
@@ -106,7 +107,8 @@ const NavBar = ({ logo, theme, setTheme }) => {
     },
 
     {
-      title: "Sign Out",
+      title: "Log Out",
+      url: "/logout",
       onClick: toggleMenu,
       svg: (
         <svg

@@ -1,6 +1,8 @@
 import "./signin.css";
 import React from "react";
 
+import Password from "../components/password";
+
 import { Link } from "react-router-dom";
 
 const SignIn = () => {
@@ -14,7 +16,7 @@ const SignIn = () => {
             placeholder="Enter Your Email-ID"
             autoComplete="none"
           />
-          <input type="password" placeholder="Enter Your Password" />
+          <Password placeholder="Enter Your Password"></Password>
           <Link to="/recover" style={{ textAlign: "right" }}>
             forgot password ?
           </Link>
