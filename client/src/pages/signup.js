@@ -1,10 +1,13 @@
 import "./signin.css";
 import Password from "../components/password";
+import { UserContext } from "../contexts/userContext";
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { auth } from "../firebase";
 
 const SignIn = () => {
+  const [user, setUser] = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,8 +58,12 @@ const SignIn = () => {
     e.preventDefault();
     if (validation) {
       console.log({ username, password, cpassword, email });
+      auth
+        .createUserWithEmailAndPassword(email, password)
+        .then((user) => setUser(user.user))
+        .catch((err) => console.log(err));
     } else {
-      console.log("ERROR");
+      console.log("Please Check Your Passwords");
     }
   };
 
@@ -84,7 +91,7 @@ const SignIn = () => {
           <Password
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter Your Password"
+            placeholder="Enter Your Password (Min Length: 6)"
           ></Password>
           <Password
             value={cpassword}

@@ -11,6 +11,8 @@ import SignUp from "./pages/signup";
 import LogIn from "./pages/login";
 import Recover from "./pages/recover";
 
+import { UserProvider } from "./contexts/userContext";
+
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 const App = () => {
@@ -37,20 +39,22 @@ const App = () => {
   };
 
   return (
-    <BrowserRouter>
-      <div style={bodyStyle}>
-        <NavBar logo={logo} theme={theme} setTheme={setTheme}></NavBar>
-        <Switch>
-          <Route path="/search" component={Search} />
-          <Route path="/books" component={Books} />
-          <Route path="/profile" component={Profile} />
-          <Route path="/signup" component={SignUp} />
-          <Route path="/login" component={LogIn} />
-          <Route path="/recover" component={Recover} />
-          <Route path="/" exact render={() => <h1>home</h1>} />
-        </Switch>
-      </div>
-    </BrowserRouter>
+    <UserProvider>
+      <BrowserRouter>
+        <div style={bodyStyle}>
+          <NavBar logo={logo} theme={theme} setTheme={setTheme}></NavBar>
+          <Switch>
+            <Route path="/search" component={Search} />
+            <Route path="/books" component={Books} />
+            <Route path="/profile" component={Profile} />
+            <Route path="/signup" component={SignUp} />
+            <Route path="/login" component={LogIn} />
+            <Route path="/recover" component={Recover} />
+            <Route path="/" exact render={() => <h1>home</h1>} />
+          </Switch>
+        </div>
+      </BrowserRouter>
+    </UserProvider>
   );
 };
 
