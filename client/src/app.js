@@ -4,6 +4,10 @@ import logo from "./assets/LibHood.png";
 
 import React, { useState } from "react";
 
+//  firebase pkgs
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./firebase";
+
 import Search from "./pages/search";
 import Books from "./pages/books";
 import Profile from "./pages/profile";
@@ -11,11 +15,10 @@ import SignUp from "./pages/signup";
 import LogIn from "./pages/login";
 import Recover from "./pages/recover";
 
-import { UserProvider } from "./contexts/userContext";
-
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 const App = () => {
+  const [user] = useAuthState(auth);  //  keeps track of user state 👻
   const [theme, setTheme] = useState("dark");
 
   const app = document.querySelector(":root");
@@ -39,22 +42,21 @@ const App = () => {
   };
 
   return (
-    <UserProvider>
-      <BrowserRouter>
-        <div style={bodyStyle}>
-          <NavBar logo={logo} theme={theme} setTheme={setTheme}></NavBar>
-          <Switch>
-            <Route path="/search" component={Search} />
-            <Route path="/books" component={Books} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/signup" component={SignUp} />
-            <Route path="/login" component={LogIn} />
-            <Route path="/recover" component={Recover} />
-            <Route path="/" exact render={() => <h1>home</h1>} />
-          </Switch>
-        </div>
-      </BrowserRouter>
-    </UserProvider>
+    <BrowserRouter>
+      <div style={bodyStyle}>
+        <NavBar logo={logo} theme={theme} setTheme={setTheme}></NavBar>
+        <Switch>
+          <Route path="/" exact render={() => <h1>home</h1>} />
+          <Route path="/search" component={user?Search:null} /> {/* component routes for authenticated user 👇 */}
+          <Route path="/books" component={user?Books:null} />
+          <Route path="/profile" component={user?Profile:null} />
+          <Route path="/signup" component={user?null:SignUp} /> {/* component routes for unauthenticated user 👇 */}
+          <Route path="/login" component={user?null:LogIn} />
+          <Route path="/recover" component={user?null:Recover} />
+          )
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 };
 
