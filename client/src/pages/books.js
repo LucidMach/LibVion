@@ -26,7 +26,7 @@ const Books = () => {
   });
 
   return (
-    <div style={coverStyle}>
+    <>
     <React.Fragment>
       <ExtendDrop msg="my books" default={true}>
         
@@ -35,7 +35,7 @@ const Books = () => {
         REQUESTS
       </ExtendDrop>
     </React.Fragment>
-    </div>
+    </>
   );
 };
 

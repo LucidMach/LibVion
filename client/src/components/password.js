@@ -1,7 +1,7 @@
 import "./password.css";
 import React, { useRef, useState } from "react";
 
-const Password = ({ placeholder, value, onChange }) => {
+const Password = ({ placeholder, name }) => {
   const [visible, setVisible] = useState(false);
   const eye = useRef();
 
@@ -19,8 +19,7 @@ const Password = ({ placeholder, value, onChange }) => {
       <input
         ref={eye}
         style={{ width: "100%" }}
-        value={value}
-        onChange={onChange}
+        name={name}
         type="password"
         placeholder={placeholder}
         required

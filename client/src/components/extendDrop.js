@@ -15,7 +15,7 @@ const ExtendDrop = ({ msg, children }) => {
         >
           <path d="M24 22h-24l12-20z" />
         </svg>
-        {msg}
+        <span>{msg}</span>
         <hr />
       </div>
       {drop ? <div className="drop-content">{children}</div> : null}
