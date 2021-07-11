@@ -17,7 +17,9 @@ const isAuthorised = require('./controllers/isAuthorised');
 let app = express();
 
 
+
 let allowedOrigins = 'localhost:3000';
+
 
 
 //  middlewares

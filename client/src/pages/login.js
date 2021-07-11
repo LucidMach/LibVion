@@ -2,6 +2,8 @@ import "./signin.css";
 import { auth } from "../app"; 
 import React from "react";
 
+import Password from "../components/password";
+
 import { Link } from "react-router-dom";
 
 const SignIn = () => {
@@ -48,7 +50,7 @@ const SignIn = () => {
             autoComplete="none"
             required
           />
-          <input type="password" name="password" placeholder="Enter Your Password" required />
+          <Password placeholder="Enter Your Password"></Password>
           <Link to="/recover" style={{ textAlign: "right" }}>
             forgot password ?
           </Link>
