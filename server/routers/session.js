@@ -13,14 +13,14 @@ router.get('/', (req, res) => {
 
 
 router.post('/signup', async (req, res) => {
-    let { email, password, displayName } = req.body;
+    let { email, password } = req.body;
 
     /**  @todo regex validations for password, username etc.... */
 
     await admin
     .auth()
     .createUser({
-        email, password, displayName
+        email, password
     })
     .then((user) => {
         console.log('Successfully created new user:', user.uid);

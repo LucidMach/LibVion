@@ -38,7 +38,6 @@ const SignIn = () => {
         body: JSON.stringify({
           email,
           password,
-          displayName: username
         })
       };
       //  send req.
