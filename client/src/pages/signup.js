@@ -16,11 +16,7 @@ const SignIn = () => {
     }
     return false;
   }
-
-  const signup = e => {
-    e.preventDefault();
-    if(validation()) {
-
+  
   useEffect(() => {
     setTimeout(() => setMsg({}), 10000);
   }, [msg]);
@@ -70,7 +66,6 @@ const SignIn = () => {
     flexDirection: "column",
     justifyContent: "center",
   };
->>>>>>> cc4beeed2c48cb0446daef8c105e6eb5d000182c
 
   return (
     <div style={bodyStyle}>
