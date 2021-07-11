@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import ExtendDrop from "../components/extendDrop";
 
 const Books = () => {
-  // const [books, setBooks] = useState([null]);
 
   const getBookInfo = id => {
     fetch(`/books/${id}`)
       .then(res => res.json())
       .then(data => {
-        // setBooks({
           console.log("name: ", data.data.name)
           console.log("author: ",data.data.author)
-        // });
       });
   }
 

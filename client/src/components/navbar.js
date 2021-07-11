@@ -2,7 +2,7 @@ import "./navbar.css";
 import React, { useEffect, useRef, useState } from "react";
 import Toggle from "./toggle";
 import Menu from "./menu";
-import { auth } from "../app";
+import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 const NavBar = ({ logo, theme, setTheme }) => {

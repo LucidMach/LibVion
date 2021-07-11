@@ -5,9 +5,8 @@ import logo from "./assets/LibHood.png";
 import React, { useState } from "react";
 
 //  firebase pkgs
-import firebase from "firebase/app";
-import "firebase/auth"
 import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./firebase";
 
 import Search from "./pages/search";
 import Books from "./pages/books";
@@ -17,19 +16,6 @@ import LogIn from "./pages/login";
 import Recover from "./pages/recover";
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-
-//  firebase config
-firebase.initializeApp({
-  apiKey: "AIzaSyBT4pu9ve8zrqSz0CmxENE3KDp8AbSWEn0",
-  authDomain: "libhood-7.firebaseapp.com",
-  projectId: "libhood-7",
-  storageBucket: "libhood-7.appspot.com",
-  messagingSenderId: "887318886355",
-  appId: "1:887318886355:web:7822c502c98a7af9366126",
-  measurementId: "G-79GE8Z0ZVD"
-});
-
-export const auth = firebase.auth();  //  auth obj of firebase, will use this for logging in 😉
 
 const App = () => {
   const [user] = useAuthState(auth);  //  keeps track of user state 👻
