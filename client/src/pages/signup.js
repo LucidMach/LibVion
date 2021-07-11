@@ -16,7 +16,7 @@ const SignIn = () => {
   const [cpassword, setCpassword] = useState("");
 
   useEffect(() => {
-    setTimeout(() => setMsg({}), 7000);
+    setTimeout(() => setMsg({}), 10000);
   }, [msg]);
 
   const signup = (e) => {
@@ -28,6 +28,9 @@ const SignIn = () => {
         .then((user) => {
           setUser(user.user);
           setMsg({ msg: "Success", color: "#00f100", bgColor: "#a1f1a1" });
+          auth.currentUser
+            .sendEmailVerification()
+            .then(console.log("Email For Verification Sent"));
         })
         .catch((err) => {
           setMsg({ msg: err.message, color: "#c10000", bgColor: "#f1a1a1" });
