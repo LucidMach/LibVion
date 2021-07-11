@@ -1,85 +1,58 @@
 import "./signin.css";
 import Password from "../components/password";
 import { UserContext } from "../contexts/userContext";
-
-import React, { useState, useContext } from "react";
+import Alert from "../components/alert";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../firebase";
 
 const SignIn = () => {
+  // eslint-disable-next-line
   const [user, setUser] = useContext(UserContext);
-  const [username, setUsername] = useState("");
+
+  const [msg, setMsg] = useState({});
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState("");
 
-  const validation = () => {
-    if (password.length > 6 && password === cpassword) {
-      return true;
-    }
-    return false;
-  };
-
-  // const signup = (e) => {
-  //   e.preventDefault();
-  //   if (validation()) {
-  //     // configuration for req;
-  //     const requestOptions = {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       // withCredentials: true,
-  //       credentials: "include",
-  //       body: JSON.stringify({
-  //         email,
-  //         password,
-  //         displayName: username,
-  //       }),
-  //     };
-  //     //  send req.
-  //     fetch("/session/signup", requestOptions)
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         console.log(data);
-  //         data.success ? alert("user created successfully") : alert(data.error);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  //   //  validation failed
-  //   else {
-  //     alert("recheck form before submitting");
-  //     setEmail("");
-  //     setUsername("");
-  //     setPassword("");
-  //     setCpassword("");
-  //   }
-  // };
+  useEffect(() => {
+    setTimeout(() => setMsg({}), 7000);
+  }, [msg]);
 
   const signup = (e) => {
     e.preventDefault();
-    if (validation) {
-      console.log({ username, password, cpassword, email });
+    if (password.length > 6 && password === cpassword) {
+      console.log({ password, cpassword, email });
       auth
         .createUserWithEmailAndPassword(email, password)
-        .then((user) => setUser(user.user))
-        .catch((err) => console.log(err));
+        .then((user) => {
+          setUser(user.user);
+          setMsg({ msg: "Success", color: "#00f100", bgColor: "#a1f1a1" });
+        })
+        .catch((err) => {
+          setMsg({ msg: err.message, color: "#c10000", bgColor: "#f1a1a1" });
+        });
     } else {
-      console.log("Please Check Your Passwords");
+      setMsg({
+        msg: "Please Check Your Passwords",
+        color: "#c10000",
+        bgColor: "#f1a1a1",
+      });
     }
   };
 
+  const bodyStyle = {
+    height: window.innerHeight,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  };
+
   return (
-    <>
+    <div style={bodyStyle}>
       <div className="card">
         <form onSubmit={signup} method="POST">
           <h1>Sign Up</h1>
-          <input
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            type="text"
-            placeholder="Enter Your Username"
-            autoComplete="none"
-            required
-          />
           <input
             type="email"
             value={email}
@@ -91,7 +64,7 @@ const SignIn = () => {
           <Password
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter Your Password (Min Length: 6)"
+            placeholder="Enter Your Password"
           ></Password>
           <Password
             value={cpassword}
@@ -105,7 +78,8 @@ const SignIn = () => {
       <p style={{ textAlign: "center" }}>
         Have An Account? <Link to="/login">Log In</Link>
       </p>
-    </>
+      {msg && <Alert msg={msg.msg} color={msg.color} bgColor={msg.bgColor} />}
+    </div>
   );
 };
 

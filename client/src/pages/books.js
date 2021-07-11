@@ -3,14 +3,14 @@ import ExtendDrop from "../components/extendDrop";
 
 const Books = () => {
   return (
-    <React.Fragment>
+    <div className="card" style={{ position: "relative", top: 80 }}>
       <ExtendDrop msg="my books" default={true}>
         BOOKS
       </ExtendDrop>
       <ExtendDrop msg="my requests" default={false}>
         REQUESTS
       </ExtendDrop>
-    </React.Fragment>
+    </div>
   );
 };
 

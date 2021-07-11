@@ -31,28 +31,19 @@ const App = () => {
     app.style.setProperty("--background-plus", "#ffffff");
   }
 
-  const bodyStyle = {
-    height: window.innerHeight,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-  };
-
   return (
     <UserProvider>
       <BrowserRouter>
-        <div style={bodyStyle}>
-          <NavBar logo={logo} theme={theme} setTheme={setTheme}></NavBar>
-          <Switch>
-            <Route path="/search" component={Search} />
-            <Route path="/books" component={Books} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/signup" component={SignUp} />
-            <Route path="/login" component={LogIn} />
-            <Route path="/recover" component={Recover} />
-            <Route path="/" exact render={() => <h1>home</h1>} />
-          </Switch>
-        </div>
+        <NavBar logo={logo} theme={theme} setTheme={setTheme}></NavBar>
+        <Switch>
+          <Route path="/signup" component={SignUp} />
+          <Route path="/login" component={LogIn} />
+          <Route path="/recover" component={Recover} />
+          <Route path="/search" component={Search} />
+          <Route path="/books" component={Books} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/" exact render={() => <h1>home</h1>} />
+        </Switch>
       </BrowserRouter>
     </UserProvider>
   );
