@@ -1,9 +1,7 @@
 import "./signin.css";
-import { auth } from "../app"; 
 import React from "react";
 
 import { auth } from "../firebase"; 
-import React, { useEffect, useState } from "react";
 
 import Alert from "../components/alert";
 import Password from "../components/password";

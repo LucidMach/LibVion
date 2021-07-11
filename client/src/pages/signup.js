@@ -1,17 +1,5 @@
 import "./signin.css";
 
-<<<<<<< HEAD
-import React, { useState } from "react";
-import Password from "../components/password";
-
-import { Link } from "react-router-dom";
-
-const SignIn = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [cpassword, setCpassword] = useState('');
-=======
 import React, { useState, useEffect } from "react";
 import Password from "../components/password";
 
@@ -20,7 +8,6 @@ import { Link } from "react-router-dom";
 
 const SignIn = () => {
   const [msg, setMsg] = useState({});
->>>>>>> cc4beeed2c48cb0446daef8c105e6eb5d000182c
 
 
   const validation = (p, c) => {
