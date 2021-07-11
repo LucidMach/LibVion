@@ -26,23 +26,17 @@ const Books = () => {
   });
 
   return (
-    <div style={coverStyle}>
+    <>
     <React.Fragment>
       <ExtendDrop msg="my books" default={true}>
-        
+        BOOKS
       </ExtendDrop>
       <ExtendDrop msg="my requests" default={false}>
         REQUESTS
       </ExtendDrop>
     </React.Fragment>
-    </div>
+    </>
   );
 };
 
 export default Books;
-
-const coverStyle = {
-  height: "50%",
-  width: "80%",
-  margin: "auto",
-}

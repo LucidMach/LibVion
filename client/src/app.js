@@ -34,13 +34,6 @@ const App = () => {
     app.style.setProperty("--background-plus", "#ffffff");
   }
 
-  const bodyStyle = {
-    height: window.innerHeight,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-  };
-
   return (
     <BrowserRouter>
       <div style={bodyStyle}>

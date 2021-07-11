@@ -9,8 +9,10 @@
 .drop-content {
   margin-left: 1rem;
 }
+.extendDrop span {
+  margin: 0 1rem;
+}
 .extendDrop svg {
-  z-index: 0;
   transform: rotate(90deg);
   transition: 0.2s;
   fill: var(--foreground);

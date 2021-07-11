@@ -1,27 +1,34 @@
 import "./signin.css";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Password from "../components/password";
 
+import Alert from "../components/alert";
 import { Link } from "react-router-dom";
 
 const SignIn = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [cpassword, setCpassword] = useState('');
+  const [msg, setMsg] = useState({});
 
 
-  const validation = () => {
-    if (password.length > 6 && password === cpassword) {
+  const validation = (p, c) => {
+    if (p.length > 6 && p === c) {
       return true;
     }
     return false;
   }
 
+
+
+  useEffect(() => {
+    setTimeout(() => setMsg({}), 10000);
+  }, [msg]);
+
   const signup = e => {
     e.preventDefault();
-    if(validation()) {
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const cpassword = e.target.cpassword.value;
+    if(validation(password, cpassword)) {
       // configuration for req;
       const requestOptions = {
         method: 'POST',
@@ -40,52 +47,47 @@ const SignIn = () => {
         .then(data => {
           console.log(data);
           data.success ?
-          alert("user created successfully") :
-          alert(data.error)
+          setMsg({ msg: "Success", color: "#00f100", bgColor: "#a1f1a1" }) :
+          setMsg({ msg: "failed", color: "#c10000", bgColor: "#f1a1a1" })
         })
-        .catch(err => console.log(err));
+        .catch(err => setMsg({ msg: err.message, color: "#c10000", bgColor: "#f1a1a1" }));
     }
     //  validation failed
     else {
-      alert('recheck form before submitting');
-      setEmail('');
-      setUsername('');
-      setPassword('');
-      setCpassword('');
+      setMsg({
+        msg: "Please Check Your Passwords",
+        color: "#c10000",
+        bgColor: "#f1a1a1",
+      });
     }
   }
 
 
+  const bodyStyle = {
+    height: window.innerHeight,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  };
+
   return (
-    <>
+    <div style={bodyStyle}>
       <div className="card">
         <form onSubmit={signup} method="POST">
           <h1>Sign Up</h1>
-          <input value={username} onChange={e => setUsername(e.target.value)} type="text" placeholder="Enter you username" required/>
-          <input
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            type="text"
-            placeholder="Enter Your Username"
-            autoComplete="none"
-            required
-          />
           <input
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
             placeholder="Enter Your Email-ID"
             autoComplete="none"
             required
           />
           <Password
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter Your Password (Min Length: 6)"
+            name="password"
+            placeholder="Enter Your Password"
           ></Password>
           <Password
-            value={cpassword}
-            onChange={(e) => setCpassword(e.target.value)}
+            name="cpassword"
             placeholder="Confirm Your Password"
           ></Password>
           <button>Sign Up</button>
@@ -95,7 +97,8 @@ const SignIn = () => {
       <p style={{ textAlign: "center" }}>
         Have An Account? <Link to="/login">Log In</Link>
       </p>
-    </>
+      {msg && <Alert msg={msg.msg} color={msg.color} bgColor={msg.bgColor} />}
+    </div>
   );
 };
 
