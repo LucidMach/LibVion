@@ -26,7 +26,11 @@ router.post('/signup', async (req, res) => {
         console.log('Successfully created new user:', user.uid);
         //  initialize user's bookList in firestore DB
         pushUser(user.uid, _ => {
-            res.json({success: true});
+            //  send email verification email
+            admin
+                .auth()
+                .generateEmailVerificationLink(user.email, {url: 'https://localhost:3000/profile'})
+                .then((link) => res.json({success: true, link}));
         })
     })
     .catch((error) => {
