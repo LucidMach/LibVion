@@ -47,7 +47,7 @@ const SignIn = () => {
           console.log(data);
           data.success ?
           setMsg({ msg: "Success", color: "#00f100", bgColor: "#a1f1a1" }) :
-          setMsg({ msg: "failed", color: "#c10000", bgColor: "#f1a1a1" })
+          setMsg({ msg: data.error, color: "#c10000", bgColor: "#f1a1a1" })
         })
         .catch(err => setMsg({ msg: err.message, color: "#c10000", bgColor: "#f1a1a1" }));
     }
