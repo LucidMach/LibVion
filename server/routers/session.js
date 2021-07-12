@@ -13,30 +13,23 @@ router.get('/', (req, res) => {
 
 
 router.post('/signup', async (req, res) => {
-    let { email, password } = req.body;
+    let { idToken } = req.body;
 
-    /**  @todo regex validations for password, username etc.... */
+    try {
+        const user = await admin
+            .auth()
+            .verifyIdToken(idToken)
 
-    await admin
-    .auth()
-    .createUser({
-        email, password
-    })
-    .then((user) => {
-        console.log('Successfully created new user:', user.uid);
         //  initialize user's bookList in firestore DB
         pushUser(user.uid, _ => {
-            //  send email verification email
-            admin
-                .auth()
-                .generateEmailVerificationLink(user.email, {url: 'https://localhost:3000/profile'})
-                .then((link) => res.json({success: true, link}));
+            // res.json({success: true})
+            res.redirect(307, '/session/login');
         })
-    })
-    .catch((error) => {
+    }  
+    catch(error) {
         console.log('Error creating new user:', error.message);
         res.status(401).json({success: false, error: error.message});
-    });
+    }
 });
 
 

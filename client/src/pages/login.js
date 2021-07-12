@@ -28,7 +28,6 @@ const SignIn = () => {
     let email = e.target.email.value;
     let password = e.target.password.value;
     try {
-      history.push("./search");
       const { user } = await auth.signInWithEmailAndPassword(email, password);
       const idToken = await user.getIdToken();
       // configuration for req;
@@ -43,6 +42,7 @@ const SignIn = () => {
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
+          history.push("./profile");
         });
     } catch (err) {
       console.log(err);

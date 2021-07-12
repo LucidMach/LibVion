@@ -1,6 +1,7 @@
 import "./signin.css";
 
 import React, { useState, useEffect } from "react";
+import {auth} from "../firebase";
 import Password from "../components/password";
 
 import Alert from "../components/alert";
@@ -21,35 +22,40 @@ const SignIn = () => {
     setTimeout(() => setMsg({}), 10000);
   }, [msg]);
 
-  const signup = (e) => {
+  const signup = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
     const cpassword = e.target.cpassword.value;
     if (validation(password, cpassword)) {
-      // configuration for req;
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        // withCredentials: true,
-        credentials: "include",
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      };
-      history.push("./profile");
-      //  send req.
-      fetch("/session/signup", requestOptions)
-        .then((response) => response.json())
-        .then(async (data) => {
-          console.log(data);
-          if (!data.success)
-            setMsg({ msg: data.error, color: "#c10000", bgColor: "#f1a1a1" });
-        })
-        .catch((err) =>
-          setMsg({ msg: err.message, color: "#c10000", bgColor: "#f1a1a1" })
-        );
+
+      try {
+        const { user } = await auth.createUserWithEmailAndPassword(email, password);
+        await user.sendEmailVerification();
+        const idToken = await user.getIdToken();
+        console.log(idToken);
+        // configuration for req;
+        const requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ idToken }),
+        };
+        //  send req.
+        fetch("/session/signup", requestOptions)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            history.push("./profile");
+          })
+
+      }
+
+      catch (err) {
+        setMsg({ msg: err.message, color: "#c10000", bgColor: "#f1a1a1" })
+      }
+
+      
     }
     //  validation failed
     else {
