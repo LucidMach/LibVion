@@ -48,7 +48,7 @@ const SignIn = () => {
               color: "#00f100",
               bgColor: "#a1f1a1",
             });
-          history.push("./profile");
+          history.push("./search");
         });
     } catch (err) {
       console.log(err);

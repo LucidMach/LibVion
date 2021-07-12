@@ -4,56 +4,59 @@ import React, { useState, useEffect } from "react";
 import Password from "../components/password";
 
 import Alert from "../components/alert";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const SignIn = () => {
+  const history = useHistory();
   const [msg, setMsg] = useState({});
-
 
   const validation = (p, c) => {
     if (p.length > 6 && p === c) {
       return true;
     }
     return false;
-  }
-
-
+  };
 
   useEffect(() => {
     setTimeout(() => setMsg({}), 10000);
   }, [msg]);
 
-  const signup = e => {
+  const signup = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
     const cpassword = e.target.cpassword.value;
-    if(validation(password, cpassword)) {
+    if (validation(password, cpassword)) {
       // configuration for req;
       const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         // withCredentials: true,
-        credentials: 'include',
+        credentials: "include",
         body: JSON.stringify({
           email,
           password,
-        })
+        }),
       };
       //  send req.
-      fetch('/session/signup', requestOptions)
-        .then(response => response.json())
-        .then(async data => {
+      fetch("/session/signup", requestOptions)
+        .then((response) => response.json())
+        .then(async (data) => {
           console.log(data);
-          if(data.success) {
-            alert(data.link)
-            setMsg({ msg: "Success! Emai verification has been sent; please check inbox ❤️", color: "#00f100", bgColor: "#a1f1a1" });
+          if (data.success) {
+            history.push("./profile");
+            setMsg({
+              msg: "Success! Emai verification has been sent; please check inbox ❤️",
+              color: "#00f100",
+              bgColor: "#a1f1a1",
+            });
             /* redirect to Login */
-          }
-          else
-            setMsg({ msg: data.error, color: "#c10000", bgColor: "#f1a1a1" })
+          } else
+            setMsg({ msg: data.error, color: "#c10000", bgColor: "#f1a1a1" });
         })
-        .catch(err => setMsg({ msg: err.message, color: "#c10000", bgColor: "#f1a1a1" }));
+        .catch((err) =>
+          setMsg({ msg: err.message, color: "#c10000", bgColor: "#f1a1a1" })
+        );
     }
     //  validation failed
     else {
@@ -63,8 +66,7 @@ const SignIn = () => {
         bgColor: "#f1a1a1",
       });
     }
-  }
-
+  };
 
   const bodyStyle = {
     height: window.innerHeight,
