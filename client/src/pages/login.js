@@ -28,6 +28,7 @@ const SignIn = () => {
     let email = e.target.email.value;
     let password = e.target.password.value;
     try {
+      history.push("./search");
       const { user } = await auth.signInWithEmailAndPassword(email, password);
       const idToken = await user.getIdToken();
       // configuration for req;
@@ -37,7 +38,6 @@ const SignIn = () => {
         credentials: "include",
         body: JSON.stringify({ idToken }),
       };
-      history.push("./search");
       //  send req to backend for session
       fetch("/session/login", requestOptions)
         .then((res) => res.json())
