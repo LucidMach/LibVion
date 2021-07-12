@@ -38,20 +38,13 @@ const SignIn = () => {
           password,
         }),
       };
+      history.push("./profile");
       //  send req.
       fetch("/session/signup", requestOptions)
         .then((response) => response.json())
         .then(async (data) => {
           console.log(data);
-          if (data.success) {
-            history.push("./profile");
-            setMsg({
-              msg: "Success! Emai verification has been sent; please check inbox ❤️",
-              color: "#00f100",
-              bgColor: "#a1f1a1",
-            });
-            /* redirect to Login */
-          } else
+          if (!data.success)
             setMsg({ msg: data.error, color: "#c10000", bgColor: "#f1a1a1" });
         })
         .catch((err) =>

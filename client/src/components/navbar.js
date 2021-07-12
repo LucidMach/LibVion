@@ -16,14 +16,12 @@ const NavBar = ({ logo, theme, setTheme }) => {
 
   const logout = () => {
     auth.signOut();
+    history.push("/");
     fetch("/session/logout")
       .then((res) => res.json())
       .then((data) => {
-        data.success
-          ? alert("logged out successfully!")
-          : alert("something wrong happened on server-side");
+        if (!data.success) alert("something wrong happened on server-side");
       });
-    history.push("/");
   };
 
   const toggleMenu = () => {

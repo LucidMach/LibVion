@@ -13,7 +13,7 @@ const SignIn = () => {
   const [msg, setMsg] = useState({});
 
   useEffect(() => {
-    setTimeout(() => setMsg({}), 1500);
+    if (msg !== {}) setTimeout(() => setMsg({}), 3000);
   }, [msg]);
 
   const bodyStyle = {
@@ -37,18 +37,12 @@ const SignIn = () => {
         credentials: "include",
         body: JSON.stringify({ idToken }),
       };
+      history.push("./search");
       //  send req to backend for session
       fetch("/session/login", requestOptions)
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          if (data.success)
-            setMsg({
-              msg: "Success! Redirecting to Profile",
-              color: "#00f100",
-              bgColor: "#a1f1a1",
-            });
-          history.push("./search");
         });
     } catch (err) {
       console.log(err);
