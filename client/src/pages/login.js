@@ -1,6 +1,6 @@
 import "./signin.css";
 
-import { auth } from "../firebase"; 
+import { auth } from "../firebase";
 import React, { useEffect, useState } from "react";
 
 import Alert from "../components/alert";
@@ -12,7 +12,7 @@ const SignIn = () => {
   const [msg, setMsg] = useState({});
 
   useEffect(() => {
-    setTimeout(() => setMsg({}), 7000);
+    setTimeout(() => setMsg({}), 3000);
   }, [msg]);
 
   const bodyStyle = {
@@ -22,36 +22,37 @@ const SignIn = () => {
     justifyContent: "center",
   };
 
-  const login = async e => {
+  const login = async (e) => {
     e.preventDefault();
-    let email =  e.target.email.value;
+    let email = e.target.email.value;
     let password = e.target.password.value;
     try {
       const { user } = await auth.signInWithEmailAndPassword(email, password);
       const idToken = await user.getIdToken();
       // configuration for req;
       const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ idToken })
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ idToken }),
       };
       //  send req to backend for session
       fetch("/session/login", requestOptions)
-        .then(res => res.json())
-        .then(data => {
+        .then((res) => res.json())
+        .then((data) => {
           console.log(data);
-          if (data.success) 
-            setMsg({ msg: "Success", color: "#00f100", bgColor: "#a1f1a1" });
-          else 
-            setMsg({ msg: "failed", color: "#00f100", bgColor: "#a1f1a1" });
+          if (data.success)
+            setMsg({
+              msg: "Success! Redirecting to Profile",
+              color: "#00f100",
+              bgColor: "#a1f1a1",
+            });
         });
-    }
-    catch (err)  {
-      console.log(err)
+    } catch (err) {
+      console.log(err);
       setMsg({ msg: err.message, color: "#c10000", bgColor: "#f1a1a1" });
     }
-  }
+  };
 
   return (
     <div style={bodyStyle}>
