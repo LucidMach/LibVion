@@ -6,13 +6,14 @@ import React, { useEffect, useState } from "react";
 import Alert from "../components/alert";
 import Password from "../components/password";
 
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const SignIn = () => {
+  const history = useHistory();
   const [msg, setMsg] = useState({});
 
   useEffect(() => {
-    setTimeout(() => setMsg({}), 3000);
+    setTimeout(() => setMsg({}), 1500);
   }, [msg]);
 
   const bodyStyle = {
@@ -47,6 +48,7 @@ const SignIn = () => {
               color: "#00f100",
               bgColor: "#a1f1a1",
             });
+          history.push("./profile");
         });
     } catch (err) {
       console.log(err);
