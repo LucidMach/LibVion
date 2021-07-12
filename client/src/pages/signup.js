@@ -1,7 +1,7 @@
-import "./signin.css";
+import "./css/signin.css";
 
 import React, { useState, useEffect } from "react";
-import {auth} from "../firebase";
+import { auth } from "../firebase";
 import Password from "../components/password";
 
 import Alert from "../components/alert";
@@ -19,7 +19,7 @@ const SignIn = () => {
   };
 
   useEffect(() => {
-    setTimeout(() => setMsg({}), 10000);
+    setTimeout(() => setMsg({}), 3000);
   }, [msg]);
 
   const signup = async (e) => {
@@ -28,9 +28,11 @@ const SignIn = () => {
     const password = e.target.password.value;
     const cpassword = e.target.cpassword.value;
     if (validation(password, cpassword)) {
-
       try {
-        const { user } = await auth.createUserWithEmailAndPassword(email, password);
+        const { user } = await auth.createUserWithEmailAndPassword(
+          email,
+          password
+        );
         await user.sendEmailVerification();
         const idToken = await user.getIdToken();
         console.log(idToken);
@@ -47,15 +49,10 @@ const SignIn = () => {
           .then((data) => {
             console.log(data);
             history.push("./profile");
-          })
-
+          });
+      } catch (err) {
+        setMsg({ msg: err.message, color: "#c10000", bgColor: "#f1a1a1" });
       }
-
-      catch (err) {
-        setMsg({ msg: err.message, color: "#c10000", bgColor: "#f1a1a1" })
-      }
-
-      
     }
     //  validation failed
     else {

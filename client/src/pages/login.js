@@ -1,10 +1,11 @@
-import "./signin.css";
+import "./css/signin.css";
 
 import { auth } from "../firebase";
 import React, { useEffect, useState } from "react";
 
 import Alert from "../components/alert";
 import Password from "../components/password";
+import Spinner from "../components/spinner";
 
 import { Link, useHistory } from "react-router-dom";
 
@@ -77,6 +78,7 @@ const SignIn = () => {
       <p style={{ textAlign: "center" }}>
         Don't Have An Account? <Link to="/signup">Sign Up</Link>
       </p>
+      <Spinner></Spinner>
       {msg && <Alert msg={msg.msg} color={msg.color} bgColor={msg.bgColor} />}
     </div>
   );
