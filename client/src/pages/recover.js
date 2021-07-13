@@ -5,9 +5,11 @@ import { Link } from "react-router-dom";
 import { auth } from "../firebase";
 
 import Alert from "../components/alert";
+import Spinner from "../components/spinner";
 
 const SignIn = () => {
   const [msg, setMsg] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setTimeout(() => setMsg({}), 3000);
@@ -22,6 +24,7 @@ const SignIn = () => {
 
   const sendRecovery = async (e) => {
     e.preventDefault();
+    setLoading(true);
     setMsg({
       msg: "Check Your Email ID",
       color: "#F1C100bb",
@@ -49,6 +52,7 @@ const SignIn = () => {
           <br />
         </form>
       </div>
+      {loading && <Spinner></Spinner>}
       {msg && <Alert msg={msg.msg} color={msg.color} bgColor={msg.bgColor} />}
     </div>
   );

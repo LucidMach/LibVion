@@ -12,6 +12,7 @@ import { Link, useHistory } from "react-router-dom";
 const SignIn = () => {
   const history = useHistory();
   const [msg, setMsg] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (msg !== {}) setTimeout(() => setMsg({}), 3000);
@@ -26,6 +27,7 @@ const SignIn = () => {
 
   const login = async (e) => {
     e.preventDefault();
+    setLoading(true);
     let email = e.target.email.value;
     let password = e.target.password.value;
     try {
@@ -78,7 +80,7 @@ const SignIn = () => {
       <p style={{ textAlign: "center" }}>
         Don't Have An Account? <Link to="/signup">Sign Up</Link>
       </p>
-      <Spinner></Spinner>
+      {loading && <Spinner></Spinner>}
       {msg && <Alert msg={msg.msg} color={msg.color} bgColor={msg.bgColor} />}
     </div>
   );
