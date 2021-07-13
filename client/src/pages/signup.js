@@ -31,9 +31,7 @@ const SignIn = () => {
 
       try {
         const { user } = await auth.createUserWithEmailAndPassword(email, password);
-        await user.sendEmailVerification();
         const idToken = await user.getIdToken();
-        console.log(idToken);
         // configuration for req;
         const requestOptions = {
           method: "POST",
@@ -44,11 +42,11 @@ const SignIn = () => {
         //  send req.
         fetch("/session/signup", requestOptions)
           .then((response) => response.json())
-          .then((data) => {
-            console.log(data);
+          .then((_) => {
+            //  redirect to next component after 307
             history.push("./profile");
           })
-
+          await user.sendEmailVerification();
       }
 
       catch (err) {
