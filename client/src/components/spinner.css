@@ -1,10 +1,12 @@
 .Loading {
-  background: #684bbf;
-  border: 16px solid #9b78f2;
+  position: relative;
+  top: 40px;
+  background: var(--background);
+  border: 12px solid var(--background-plus);
   border-radius: 50%;
-  border-top: 16px solid #f1f1f1;
-  width: 120px;
-  height: 120px;
+  border-top: 12px solid var(--foreground);
+  width: 70px;
+  height: 70px;
   -webkit-animation: spin 2s linear infinite; /* Safari */
   animation: spin 2s linear infinite;
 }
