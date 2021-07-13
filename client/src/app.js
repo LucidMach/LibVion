@@ -47,12 +47,12 @@ const App = () => {
         <NavBar logo={logo} theme={theme} setTheme={setTheme}></NavBar>
         <Switch>
           <Route path="/" exact render={() => <h1>home</h1>} />
-          <Route path="/search" component={user?Search:null} /> {/* component routes for authenticated user 👇 */}
-          <Route path="/books" component={user?Books:null} />
-          <Route path="/profile" component={user?Profile:null} />
-          <Route path="/signup" component={user?null:SignUp} /> {/* component routes for unauthenticated user 👇 */}
-          <Route path="/login" component={user?null:LogIn} />
-          <Route path="/recover" component={user?null:Recover} />
+          <Route path="/search" component={user?Search:LogIn} /> {/* component routes for authenticated user 👇 */}
+          <Route path="/books" component={user?Books:LogIn} />
+          <Route path="/profile" component={user?Profile:LogIn} />
+          <Route path="/signup" component={user?Profile:SignUp} /> {/* component routes for unauthenticated user 👇 */}
+          <Route path="/login" component={user?Profile:LogIn} />
+          <Route path="/recover" component={user?Profile:Recover} />
           )
         </Switch>
       </div>

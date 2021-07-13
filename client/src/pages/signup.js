@@ -1,8 +1,9 @@
-import "./signin.css";
+import "./css/signin.css";
 
 import React, { useState, useEffect } from "react";
-import {auth} from "../firebase";
+import { auth } from "../firebase";
 import Password from "../components/password";
+import Spinner from "../components/spinner";
 
 import Alert from "../components/alert";
 import { Link, useHistory } from "react-router-dom";
@@ -10,6 +11,7 @@ import { Link, useHistory } from "react-router-dom";
 const SignIn = () => {
   const history = useHistory();
   const [msg, setMsg] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const validation = (p, c) => {
     if (p.length > 6 && p === c) {
@@ -19,18 +21,22 @@ const SignIn = () => {
   };
 
   useEffect(() => {
-    setTimeout(() => setMsg({}), 10000);
+    setTimeout(() => setMsg({}), 3000);
   }, [msg]);
 
   const signup = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const email = e.target.email.value;
     const password = e.target.password.value;
     const cpassword = e.target.cpassword.value;
     if (validation(password, cpassword)) {
-
       try {
-        const { user } = await auth.createUserWithEmailAndPassword(email, password);
+        const { user } = await auth.createUserWithEmailAndPassword(
+          email,
+          password
+        );
+
         const idToken = await user.getIdToken();
         // configuration for req;
         const requestOptions = {
@@ -47,13 +53,9 @@ const SignIn = () => {
             history.push("./profile");
           })
           await user.sendEmailVerification();
+      } catch (err) {
+        setMsg({ msg: err.message, color: "#c10000", bgColor: "#f1a1a1" });
       }
-
-      catch (err) {
-        setMsg({ msg: err.message, color: "#c10000", bgColor: "#f1a1a1" })
-      }
-
-      
     }
     //  validation failed
     else {
@@ -99,6 +101,7 @@ const SignIn = () => {
       <p style={{ textAlign: "center" }}>
         Have An Account? <Link to="/login">Log In</Link>
       </p>
+      {loading && <Spinner></Spinner>}
       {msg && <Alert msg={msg.msg} color={msg.color} bgColor={msg.bgColor} />}
     </div>
   );

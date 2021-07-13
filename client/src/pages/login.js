@@ -1,16 +1,18 @@
-import "./signin.css";
+import "./css/signin.css";
 
 import { auth } from "../firebase";
 import React, { useEffect, useState } from "react";
 
 import Alert from "../components/alert";
 import Password from "../components/password";
+import Spinner from "../components/spinner";
 
 import { Link, useHistory } from "react-router-dom";
 
 const SignIn = () => {
   const history = useHistory();
   const [msg, setMsg] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (msg !== {}) setTimeout(() => setMsg({}), 3000);
@@ -25,6 +27,7 @@ const SignIn = () => {
 
   const login = async (e) => {
     e.preventDefault();
+    setLoading(true);
     let email = e.target.email.value;
     let password = e.target.password.value;
     try {
@@ -77,6 +80,7 @@ const SignIn = () => {
       <p style={{ textAlign: "center" }}>
         Don't Have An Account? <Link to="/signup">Sign Up</Link>
       </p>
+      {loading && <Spinner></Spinner>}
       {msg && <Alert msg={msg.msg} color={msg.color} bgColor={msg.bgColor} />}
     </div>
   );
