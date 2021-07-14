@@ -18,7 +18,7 @@ import Recover from "./pages/recover";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 const App = () => {
-  const [user] = useAuthState(auth);  //  keeps track of user state 👻
+  const [user] = useAuthState(auth); //  keeps track of user state 👻
   const [theme, setTheme] = useState("dark");
 
   const app = document.querySelector(":root");
@@ -47,13 +47,14 @@ const App = () => {
         <NavBar logo={logo} theme={theme} setTheme={setTheme}></NavBar>
         <Switch>
           <Route path="/" exact render={() => <h1>home</h1>} />
-          <Route path="/search" component={user?Search:LogIn} /> {/* component routes for authenticated user 👇 */}
-          <Route path="/books" component={user?Books:LogIn} />
-          <Route path="/profile" component={user?Profile:LogIn} />
-          <Route path="/signup" component={user?Profile:SignUp} /> {/* component routes for unauthenticated user 👇 */}
-          <Route path="/login" component={user?Profile:LogIn} />
-          <Route path="/recover" component={user?Profile:Recover} />
-          )
+          <Route path="/search" component={user ? Search : LogIn} />{" "}
+          {/* component routes for authenticated user 👇 */}
+          <Route path="/books" component={user ? Books : LogIn} />
+          <Route path="/profile" component={user ? Profile : LogIn} />
+          <Route path="/signup" component={user ? Profile : SignUp} />{" "}
+          {/* component routes for unauthenticated user 👇 */}
+          <Route path="/login" component={user ? Profile : LogIn} />
+          <Route path="/recover" component={user ? Profile : Recover} />
         </Switch>
       </div>
     </BrowserRouter>

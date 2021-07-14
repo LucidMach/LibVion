@@ -1,40 +1,35 @@
 import React, { useEffect, useState } from "react";
-import {auth} from "../firebase";
+import { auth } from "../firebase";
 
 const Profile = () => {
   const [emailVerified, setEmailVerified] = useState("loading");
-  const [email, setEmail] = useState('loading')
+  const [email, setEmail] = useState("loading");
 
   useEffect(() => {
-    setEmail(auth.currentUser.email)
-    setEmailVerified(auth.currentUser.emailVerified?"yes":"no");
+    setEmail(auth.currentUser.email);
+    setEmailVerified(auth.currentUser.emailVerified ? "yes" : "no");
   }, []);
 
+  const updateProfile = (e) => {
+    e.preventDefault();
+    console.log(e.target.flat.value);
+  };
+
   return (
-    <div style={coverStyle}>
-      <h1 style={textStyle}>{email}</h1>
-      <h2 style={textStyle}>Verified: {emailVerified}</h2>
+    <div className="card">
+      <form onSubmit={updateProfile} method="POST">
+        <h1>Your Profile</h1>
+        <br />
+        email-id:
+        <input type="text" placeholder={email} disabled />
+        email verification:
+        <input type="text" placeholder={emailVerified} disabled />
+        flat number:
+        <input type="number" name="flat" autoComplete="none" />
+        <button>SAVE</button>
+      </form>
     </div>
   );
 };
 
 export default Profile;
-
-
-// styles
-
-const coverStyle = {
-  display: "grid",
-  placeContent: "center",
-  height: "50%",
-  width: "80%",
-  margin: "2em auto",
-  backgroundColor: "gray"
-}
-
-const textStyle = {
-  width: "max-content",
-  textAlign: "center",
-  margin: "5px auto",
-  padding: "10px 15px"
-}
