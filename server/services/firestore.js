@@ -13,11 +13,10 @@ module.exports = {
     /* books collection */
 
     //  upload new book to the collection.
-    pushBook: (name, author, quote, callback) => {
+    pushBook: (name, author, callback) => {
         firestore.collection('books').add({
             name,
             author,
-            quote,
             time: admin.firestore.FieldValue.serverTimestamp()
         })
         .then(ss => callback(ss))

@@ -2,7 +2,7 @@ let router = require('express').Router();
 
 const isAuthorised = require('../controllers/isAuthorised');
 
-const { pullBooks, pushBook, pullBookById, updateBook, removeBook } = require('../services/firestore');
+const { pullBook, pushBook, pullBookById, updateBook, removeBook } = require('../services/firestore');
 const { pullBooksRequest, pullBookRequestById, pushBooksRequest, removeBookRequestById, markBookRequest } = require('../services/firestore');
 const { pullUserBooks, pushUserBook, removeUserBook } = require('../services/firestore');
 
@@ -103,7 +103,7 @@ router.get('/', (req, res) => {
     /**@todo check if `page` query is number */
     const ignore = req.query.page || 0;
 
-    pullBooks(books => {
+    pullBook(books => {
         res.json({success: true, data: books})
     }, ignore);
 });
@@ -120,9 +120,9 @@ router.get('/:id', (req, res) => {
 
 router.post('/', isAuthorised, (req, res) => {
     /**@todo check on fields of req.body */
-    const { name, author, quote } = req.body;
+    const { name, author } = req.body;
 
-    pushBook(name, author, quote, ss => {
+    pushBook(name, author, ss => {
         // console.log(ss)
         res.json({success: true, id: ss.id});
     });
