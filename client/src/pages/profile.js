@@ -1,20 +1,13 @@
 import React, { useEffect, useState } from "react";
+import {auth} from "../firebase";
 
 const Profile = () => {
   const [emailVerified, setEmailVerified] = useState("loading");
   const [email, setEmail] = useState('loading')
 
   useEffect(() => {
-    fetch('/user/me')
-      .then(res => res.json())
-      .then(data => {
-        console.log("profile: ", data);
-        setEmail(data.data.email);
-        data.data.emailVerified ?
-        setEmailVerified("yes") :
-        setEmailVerified("no")
-      })
-      .catch(err => console.log(err));
+    setEmail(auth.currentUser.email)
+    setEmailVerified(auth.currentUser.emailVerified?"yes":"no");
   }, []);
 
   return (
