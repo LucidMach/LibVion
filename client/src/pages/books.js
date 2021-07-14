@@ -8,12 +8,8 @@ const Books = () => {
     fetch('/books/me')
       .then(res => res.json())
       .then(data => {
-        if(data.books) {
-          console.log(books)
-        }
-        else
-          console.log('no books issued');
-      })
+        console.log(data)
+      });
   }, []);
 
   return (
