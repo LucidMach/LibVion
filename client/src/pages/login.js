@@ -49,6 +49,7 @@ const SignIn = () => {
         });
     } catch (err) {
       console.log(err);
+      setLoading(false);
       setMsg({ msg: err.message, color: "#c10000", bgColor: "#f1a1a1" });
     }
   };
