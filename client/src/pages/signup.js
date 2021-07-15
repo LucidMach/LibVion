@@ -21,7 +21,10 @@ const SignIn = () => {
   };
 
   useEffect(() => {
-    setTimeout(() => setMsg({}), 3000);
+    let t = setTimeout(() => setMsg({}), 3000);
+    return () => {
+      clearTimeout(t);
+    };
   }, [msg]);
 
   const signup = async (e) => {
@@ -51,8 +54,8 @@ const SignIn = () => {
           .then((_) => {
             //  redirect to next component after 307
             history.push("./profile");
-          })
-          await user.sendEmailVerification();
+          });
+        await user.sendEmailVerification();
       } catch (err) {
         setMsg({ msg: err.message, color: "#c10000", bgColor: "#f1a1a1" });
       }

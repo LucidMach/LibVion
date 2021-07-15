@@ -12,7 +12,10 @@ const SignIn = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setMsg({}), 3000);
+    var t = setTimeout(() => setMsg({}), 3000);
+    return () => {
+      clearTimeout(t);
+    };
   }, [msg]);
 
   const bodyStyle = {

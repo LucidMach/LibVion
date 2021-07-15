@@ -34,7 +34,7 @@ const Profile = () => {
           type="text"
           name="name"
           placeholder="Enter Your Name"
-          value={auth.currentUser.displayName}
+          defaultValue={auth.currentUser.displayName}
           autoComplete="none"
         />
         email-id:
@@ -44,7 +44,7 @@ const Profile = () => {
         flat number:
         <input
           type="number"
-          value={auth.currentUser.flatNo}
+          defaultValue={auth.currentUser.flatNo}
           name="flat"
           placeholder="Enter Flat No"
           autoComplete="none"
