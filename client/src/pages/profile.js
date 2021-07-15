@@ -13,6 +13,15 @@ const Profile = () => {
   const updateProfile = (e) => {
     e.preventDefault();
     console.log(e.target.flat.value);
+    fetch("/user/me/update", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({
+        flatNo: e.target.flat.value,
+        displayName: e.target.name.value,
+      }),
+    });
   };
 
   return (
@@ -20,12 +29,26 @@ const Profile = () => {
       <form onSubmit={updateProfile} method="POST">
         <h1>Your Profile</h1>
         <br />
+        name:
+        <input
+          type="text"
+          name="name"
+          placeholder="Enter Your Name"
+          value={auth.currentUser.displayName}
+          autoComplete="none"
+        />
         email-id:
-        <input type="text" placeholder={email} disabled />
+        <input type="text" value={email} disabled />
         email verification:
         <input type="text" placeholder={emailVerified} disabled />
         flat number:
-        <input type="number" name="flat" autoComplete="none" />
+        <input
+          type="number"
+          value={auth.currentUser.flatNo}
+          name="flat"
+          placeholder="Enter Flat No"
+          autoComplete="none"
+        />
         <button>SAVE</button>
       </form>
     </div>
