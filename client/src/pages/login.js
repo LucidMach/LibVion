@@ -15,7 +15,10 @@ const SignIn = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (msg !== {}) setTimeout(() => setMsg({}), 3000);
+    if (msg !== {}) {
+      var t = setTimeout(() => setMsg({}), 3000);
+    }
+    return () => clearTimeout(t);
   }, [msg]);
 
   const bodyStyle = {
