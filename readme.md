@@ -1,6 +1,6 @@
-# LibHood
+# LibVion
 
-A Dating App but ! Cringe
+P2P Book Sharing App usinng Computer Vision
 
 `Books Over Looks`
 
@@ -24,6 +24,8 @@ A Dating App but ! Cringe
 
 1. NodeJS
 2. FireBase (FireStore & Auth)
+3. Numpy
+4. OpenCV
 
 ### Deployments:
 
